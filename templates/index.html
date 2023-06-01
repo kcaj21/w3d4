@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/events" method="post">
+    <label for="name">name</label>
+    <input type="text" name="name" id="name">
+    <label for="description">description</label>
+    <textarea name="description" id="description" rows="2" cols="30"></textarea>
+    <label for="room_location">room_location</label>
+    <textarea name="room_location" id="room_location" rows="2" cols="30"></textarea>
+    <label for="num_guests">num_guests</label>
+    <input type="number" name="num_guests" id="num_guests">
+    <label for="date">date</label>
+    <input type="date" name="date" id="date">
+    <label for="recurring">recurring</label>
+    <input type="radio" name="recurring" id="recurring" value="True">
+    <input type="submit" value="Add Event">
+   
+
+</form>
+
+        {% for item in event_list %}
+
+        <h2>{{item.name}} : {{item.num_guests}} : {{item.room_location}} : {{item.description}} : {{item.date}}</h2>
+        {% if item.recurring == 'True' %}
+        <span>&#128260;</span>
+        {% endif %}
+        <form action="/events/delete/{{loop.index(-1)}}" method="post">
+        <input type="submit" value="Delete Event"></form>
+
+        <!-- <a href="http://127.0.0.1:4999/events/delete/{{loop.index0}}"><h2>&#128165;</h2></a> -->
+
+        {% endfor %}
+{% endblock %}
